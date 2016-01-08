@@ -1,0 +1,17 @@
+<div ng-controller="slideDataController">
+    <div ng-repeat="part in info.textData">
+        <text-block-div info="part" ></text-block-div>
+    </div>
+    <div ng-repeat="part in info.pictureData">
+        <picture-block-div info = "part"></picture-block-div>
+    </div>
+    <div ng-repeat="part in info.videoData">
+        <video-block-div info = "part"></video-block-div>
+    </div>
+    <div ng-repeat="part in info.circleData">
+        <circle-block-div info = "part"></circle-block-div>
+    </div>
+    <div ng-repeat="part in info.squareData">
+        <square-block-div info = "part"></square-block-div>
+    </div>
+</div>

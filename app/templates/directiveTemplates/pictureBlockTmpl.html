@@ -1,0 +1,31 @@
+<div  ng-controller="pictureBlockController as main" class = "draggable handle"
+     style = "z-index: {{info.zindex}} ;position: absolute; background-image: url({{pictureUrl}});
+     background-size: cover;
+     top :{{info.top}}; left: {{info.left}};
+     width: {{info.width}}; height: {{info.height}}; -webkit-transform: {{info.transform}};-moz-transform: {{info.transform}};
+     -ms-transform: {{info.transform}};-o-transform: {{info.transform}};transform: {{info.transform}};"
+     ng-click = "click(!$dragged && !$resized && !$rotated, $dropmodel)"
+     dnd-draggable-opts = "{layer: 'layer1'}"
+     dnd-rect = "main.thisBlock"
+     dnd-draggable = "true"
+     dnd-on-dragend = "main.setResizedData(main.thisBlock.top,main.thisBlock.left,main.thisBlock.width,main.thisBlock.height,main.thisBlock.transform)"
+
+     dnd-rotatable = "true"
+     dnd-on-rotateend = "main.setResizedData(main.thisBlock.top,main.thisBlock.left,main.thisBlock.width,main.thisBlock.height,main.thisBlock.transform)"
+
+     dnd-resizable = "true"
+     dnd-on-resizeend = "main.setResizedData(main.thisBlock.top,main.thisBlock.left,main.thisBlock.width,main.thisBlock.height,main.thisBlock.transform)"
+
+     dnd-containment = "'.dnd-container'"
+
+     dnd-rect = "thisBlock"
+     >
+    <button style=" position: absolute;top:0px; right:0px;width: 20px; height: 20px; padding: 0px;   opacity: {{opacityButton}};" class="btn btn-danger glyphicon glyphicon-remove"
+            ng-mouseenter="opacityButton=1"; ng-mouseleave="opacityButton = 0"; ng-click="deleteItem()"></button>
+    <button ng-click="upBlock()" style=" position: absolute;
+        width: 50px; height: 30px; padding:0px; top:0%; left:100%; opacity: {{opacityButton}}"; class="glyphicon glyphicon-circle-arrow-up btn btn-default"
+            ng-mouseenter="opacityButton=1"; ng-mouseleave="opacityButton = 0">Up</button>
+    <button ng-click="downBlock()" class="glyphicon glyphicon-circle-arrow-down btn btn-default"  style=" position: absolute;
+        width: 50px; height: 30px; padding:0px; top:30px; left:100%; opacity: {{opacityButton}}";
+            ng-mouseenter="opacityButton=1"; ng-mouseleave="opacityButton = 0">Down</button>
+</div>

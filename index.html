@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" style = "height: 100%">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
+
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/stylesheet.css" />
+
+    <script src="dist/angular/angular.js"></script>
+    <script src="dist/angular-route.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-animate.min.js"></script>
+    <script src="dist/angular-timeout.js"></script>
+
+
+    <script type="text/javascript" src = "dist/angular-dnd.js"></script>
+<script src="dist/angular-drag-and-drop-lists.js"></script>
+<script src="dist/bp-ngContextMenu.js"></script>
+<script src="dist/angular-file-upload.js"></script>
+
+
+    <script src="app/app.js"></script>
+
+    <script src="app/directives/textBlock.js"></script>
+    <script src="app/directives/pictureBlock.js"></script>
+    <script src="app/directives/videoBlock.js"></script>
+    <script src="app/directives/slideBlock.js"></script>
+    <script src="app/directives/squareBlock.js"></script>
+    <script src="app/directives/circleBlock.js"></script>
+    <script src="app/directives/tagBlock.js"></script>
+
+    <script src="app/services/slideData.js"></script>
+
+    <script src="app/controllers/slideController.js"></script>
+    <script src="app/controllers/textBlockController.js"></script>
+    <script src="app/controllers/pictureBlockController.js"></script>
+    <script src="app/controllers/squareBlockController.js"></script>
+    <script src="app/controllers/circleBlockController.js"></script>
+    <script src="app/controllers/videoBlockController.js"></script>
+    <script src="app/controllers/slideDataController.js"></script>
+    <script src="app/controllers/tagBlockController.js"></script>
+
+</head>
+
+
+<body ng-controller="SlideCtrl as main" style="height: 100%">
+    <div style="background-color: aliceblue;">
+
+        <div id="tag-info" style="position: absolute; top:0px" class="input-append">
+            <input class="form-control" ng-model="tagName" type="text" id="tagValue" style="width: 100px;" placeholder="Tag name">
+            <button ng-click="addTag(tagName)" style="background-color: greenyellow ;position: absolute; top:0px; left: 100px" class="btn">Add</button>
+        </div>
+        <div style=" position: absolute; left: 200px; top:0px; width: 65%; height: 70px;">
+            <div ng-repeat="part in main.slideMas[0].tagData">
+                <tag-block-div info = "part"></tag-block-div>
+            </div>
+        </div>
+        <button ng-click="fun()"
+                class="showButton glyphicon glyphicon-play btn btn-primary">Show</button>
+        <div class="rightBigBlock">
+            <div class = "draggable handle glyphicon glyphicon-font alert alert-success textDNDdiv"
+                 ng-style = "{'line-height': main.rect4.height}"1
+                 ng-click = "click(!$dragged && !$resized && !$rotated, $dropmodel)"
+
+                 dnd-draggable = "true"
+                 dnd-draggable-opts = "{layer: 'layer1', helper : 'clone'}"
+                 dnd-on-dragstart = "main.dragstart()"
+                 dnd-on-drag = "main.drag($dropmodel)"
+                 dnd-on-dragend = "main.dragend($dropmodel)"
+                 dnd-model = "main.text">
+
+                ТЕКСТ
+            </div>
+            <div class = "draggable handle alert alert-success glyphicon glyphicon-facetime-video videoDNDdiv"
+                 ng-style = "{'line-height': main.rect4.height}"
+                 ng-click = "click(!$dragged && !$resized && !$rotated, $dropmodel)"
+
+                 dnd-draggable = "true"
+                 dnd-draggable-opts = "{layer: 'layer1', helper : 'clone'}"
+                 dnd-on-dragstart = "main.dragstart()"
+                 dnd-on-drag = "main.drag($dropmodel)"
+                 dnd-on-dragend = "main.dragend($dropmodel)"
+
+                 dnd-model = "main.video">
+
+                Video
+                <input class="form-control videoInput" type="text" ng-model="main.videoUrl">
+
+            </div>
+            <div>
+                <div class = "draggable handle alert alert-success glyphicon glyphicon-picture pictureDNDdiv"
+                     ng-style = "{'line-height': main.rect4.height}"
+                     ng-click = "click(!$dragged && !$resized && !$rotated, $dropmodel)"
+
+                     dnd-draggable = "true"
+                     dnd-draggable-opts = "{layer: 'layer1', helper : 'clone'}"
+                     dnd-on-dragstart = "main.dragstart()"
+                     dnd-on-drag = "main.drag($dropmodel)"
+                     dnd-on-dragend = "main.dragend($dropmodel)"
+
+                     dnd-model = "main.picture">
+                    Picture
+                    <input class="alert alert-warning pictureInput" type="file" id="pictureFile" ng-model="pictureFile">
+                </div>
+            </div>
+            <div>
+                <div class = "draggable handle  alert alert-success glyphicon glyphicon-stop squareDiv"
+                     ng-style = "{'line-height': main.rect4.height}"
+                     ng-click = "click(!$dragged && !$resized && !$rotated, $dropmodel)"
+
+                     dnd-draggable = "true"
+                     dnd-draggable-opts = "{layer: 'layer1', helper : 'clone'}"
+                     dnd-on-dragstart = "main.dragstart()"
+                     dnd-on-drag = "main.drag($dropmodel)"
+                     dnd-on-dragend = "main.dragend($dropmodel)"
+
+                     dnd-model = "main.square">
+                    Square
+                </div>
+            </div>
+            <div>
+                <div class = "draggable handle  alert alert-success glyphicon glyphicon-adjust circleDiv"
+                     ng-style = "{'line-height': main.rect4.height}"
+                     ng-click = "click(!$dragged && !$resized && !$rotated, $dropmodel)"
+
+                     dnd-draggable = "true"
+                     dnd-draggable-opts = "{layer: 'layer1', helper : 'clone'}"
+                     dnd-on-dragstart = "main.dragstart()"
+                     dnd-on-drag = "main.drag($dropmodel)"
+                     dnd-on-dragend = "main.dragend($dropmodel)"
+
+                     dnd-model = "main.circle">
+                    Circle
+                </div>
+            </div>
+            <input class="form-control presentationName" type="text" ng-model="presentationName" placeholder="Name">
+
+           </div>
+        <div id="contextMenuId" class="contextBlock"></div>
+        <div id="dnd-container" class = "dnd-container activeSlideBlock"
+             ng-repeat = "dropmodel in main.dropmodels"
+             class = "dropzone"
+             ng-class = "{dropped: main.isDropped(dropmodel), active: main.isActive(dropmodel)}"
+
+             dnd-droppable = "true"
+             dnd-droppable-opts = "{layer: 'layer1'}"
+             dnd-on-drop = "main.drop($dropmodel, $dragmodel)"
+             dnd-on-dragenter = "main.dragenter($dropmodel, $dragmodel)"
+             dnd-on-dragleave = "main.dragleave($dropmodel, $dragmodel)"
+             dnd-on-dragover = "main.dragover($dropmodel, $dragmodel)"
+
+             dnd-model = "dropmodel">
+
+            <slide-block-div info="activeSlide"></slide-block-div>
+
+        </div>
+        <div id="buttonList" class="buttonList">
+            <ul dnd-container style="position:absolute; left: 0px; top:0px;width: 100% ;height: 100%; font-size: 10px; padding: 0">
+                <li ng-repeat = "item in main.slideMas" dnd-sortable
+                    dnd-on-sortstart = "ctrl.onSortStart()"
+                    dnd-on-sort = "ctrl.onSort()"
+                    dnd-on-sortchange = "ctrl.onSortChange()"
+                    dnd-on-sortend = "ctrl.onSortEnd()"
+                    dnd-on-sortenter1 = "ctrl.onSortEnter()"
+                        >
+                    <button id="but" style=" background-image: url({{item.buttonUrl}});" class="setActiveSlideButton"
+                            ng-click="main.setActiveSlide(item)" value={{item.index}}>
+
+                        <button  ng-click="main.deleteSlide(item)" class="glyphicon glyphicon-trash deleteSlideButton"></button>
+
+                    </button><br>
+                    <label class="btn btn-default" style="padding: 0"><input type="radio" name="{{item.index}}" value="animation-fade" ng-model="item.animation"> 1</label>
+                    <label class="btn btn-default" style="padding: 0"><input type="radio" name="{{item.index}}" value="animation-left" ng-model="item.animation"> 2</label>
+                    <label class="btn btn-default" style="padding: 0"><input type="radio" name="{{item.index}}" value="animation-center" ng-model="item.animation"> 3</label>
+                    <label class="btn btn-default" style="padding: 0"><input type="radio" name="{{item.index}}" value="animation-top" ng-model="item.animation"> 4</label>
+                </li>
+                <button  class="btn btn-default glyphicon-plus addSlideButton" ng-click="add_slide()">
+                    add slide
+                </button>
+            </ul>
+        </div>
+    </div>
+    <div class="leftDownBlock">
+        <div ng-repeat="part in PresentMas">
+            <button class=" glyphicon glyphicon-floppy-open btn btn-default choosePresentationButton"  ng-click="choosePresent(part)"> {{part}}
+                <button class="btn btn-danger glyphicon glyphicon-remove deletePresentationButton" ng-click="deletePresent(part)"></button>
+            </button>
+        </div>
+    </div>
+    <div class="rightDownBlock">
+        <button class="glyphicon glyphicon-refresh btn btn-warning updatePresentationButton"  ng-click="updatePresentations()" > Update</button>
+        <button ng-click="savePresent()" class="glyphicon glyphicon-floppy-save btn btn-success savePresentationButton"> Save</button>
+    </div>
+    <div style="position: absolute; z-index: 19; top:0px; left:0px; background-color: black;  height: {{showBackHeight}}; width: {{showBackWidth}};">
+        <div class="bigPlaceDiv" style="position: absolute; top:0px; z-index: 20;
+                                          background-color: gainsboro; height: {{showHeight}}; width: {{showWidth}};"ng-class="animationClass" ng-hide="showHide" >
+                <slide-block-div info="showActiveSlide"></slide-block-div>
+        </div>
+        <div class="bidContinueButton" style="height: {{showBackHeight}}; width: {{showBackWidth}}" ng-click="contin()">
+        </div>
+    </div>
+</body>
+</html>
